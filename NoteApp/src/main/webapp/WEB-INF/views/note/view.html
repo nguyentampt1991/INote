@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+
+    <meta charset="UTF-8">
+    <title>Edit note</title>
+</head>
+<body>
+<h1>View note</h1>
+<p>
+    <a href="/list">Back to  lists</a>
+</p>
+
+<form th:action="@{/view-note}" th:object="${note}" method="get">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td><input type="text" th:field="*{title}" disabled/></td>
+        </tr>
+        <tr>
+            <td> Note Type :</td>
+        <td type="text" th:if="${note.noteType}" th:text="${note.noteType.name}" ></td>
+        </tr>
+        <tr>
+            <td>Content :</td>
+            <td><textarea  th:field="*{content}" disabled></textarea></td>
+        </tr>
+
+    </table>
+</form>
+</body>
+</html>

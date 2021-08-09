@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/layout :: head">
+    <link rel="stylesheet" th:href="@{'/css/bootstrap.min.css'}">
+</head>
+<body>
+
+<a href="/create-note">Create new notes</a>
+<h1>Notes</h1>
+<table id = "notes">
+    <form >
+        Search by title:
+        <input name="search" type="search" required/>
+        <input type="submit" value="Search"/>
+
+<!--    </form>-->
+<!--    <form th:action="@{/notes-by-type/{id}}" method="post">-->
+<!--    <select name="id" ty>-->
+
+<!--        <option th:each="nt : ${types}" th:value="${nt.id}" th:text="${nt.name}"  />-->
+
+
+<!--    </select>-->
+<!--    </form>-->
+    <thead>
+    <tr>
+        <th>
+<!--           <a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir='+ ${reverseSortDir}}">-->
+            id
+
+        </th>
+        <th>
+<!--            <a th:href="@{'/page/' + ${currentPage} + '?sortField=title&sortDir='+ ${reverseSortDir}}">-->
+            Title
+
+        </th>
+        <th>
+<!--            <a th:href="@{'/page/' + ${currentPage} + '?sortField=noteType&sortDir='+ ${reverseSortDir}}">-->
+            Note Type
+            </th>
+        <th>
+<!--            <a th:href="@{'/page/' + ${currentPage} + '?sortField=content&sortDir='+ ${reverseSortDir}}">-->
+            Content
+       </th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="note,rowStat : ${notes}">
+
+            <td th:text="${note.id}" ></td>
+        <td th:text="${note.title}" ></td>
+        <td th:if="${note.noteType}" th:text="${note.noteType.name}"></td>
+        <td th:text="${note.content}"></td>
+        <td><a th:href="@{/edit-note/__${note.id}__}">Edit</a></td>
+        <td><a th:href="@{/delete-note/__${note.id}__}">Delete</a></td>
+        <td><a th:href="@{/view-note/__${note.id}__}">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<div >
+
+    <a th:if="${notes.hasPrevious()}" th:href="@{'/list'(page=${notes.number -1})}">Previous</a>&nbsp;
+    <span th:text="${notes.number} + 1"></span>/<span th:text="${notes.totalPages}"></span>&nbsp;
+    <a th:if="${notes.hasNext()}" th:href="@{'/list'(page=${notes.number + 1})}">Next</a>
+
+
+</div>
+<!--<table border="1">-->
+
+<!--    <th:block th:each="note : ${notes}">-->
+<!--        <ul>-->
+<!--            <li th:text="${note.id}"></li>-->
+<!--            <li th:text="${note.title}"></li>-->
+<!--            <li th:text="${note.content}"></li>-->
+<!--            <li th:if="${note.noteType}" th:text="${note.noteType.name}"></li>-->
+<!--            <li th:unless="${note.noteType}"></li>-->
+<!--            <a th:href="@{/edit-customer/__${note.id}__}">Edit</a>-->
+<!--            <a th:href="@{/delete-customer/__${note.id}__}">Delete</a>-->
+<!--        </ul>-->
+
+<!--    </th:block>-->
+<!--</table>-->
+
+</body>
+</html>
